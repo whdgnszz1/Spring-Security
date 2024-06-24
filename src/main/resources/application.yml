@@ -14,11 +14,6 @@ spring:
     username: test
     password: test
 
-  mvc:
-    view:
-      prefix: /templates/
-      suffix: .mustache
-
   jpa:
     hibernate:
       ddl-auto: update #create update none
