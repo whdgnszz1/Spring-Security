@@ -9,8 +9,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+// 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다.
+// 로그인 진행이 완료되면 시큐리티 session을 만들어줍니다. (Security ContextHolder)
+// 오브젝트 타입 -> Authentication 타입 객체
+// Authentication 안에 User 정보가 있어야 함.
+// User 오브젝트 타입 -> UserDetails 타입 객체
 
-import lombok.Data;
+// Security Session -> Authencation -> UserDetails
 
 // Authentication 객체에 저장할 수 있는 유일한 타입
 public class PrincipalDetails implements UserDetails, OAuth2User{
@@ -64,6 +69,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
         return true;
     }
 
+    // 해당 User의 권한을 return 하는곳
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collet = new ArrayList<GrantedAuthority>();
