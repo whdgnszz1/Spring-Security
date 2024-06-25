@@ -25,7 +25,7 @@ public class IndexController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping({ "", "/" })
+    @GetMapping({"", "/"})
     public @ResponseBody String index() {
         return "인덱스 페이지입니다.";
     }
@@ -33,7 +33,7 @@ public class IndexController {
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principal) {
         System.out.println("Principal : " + principal);
-        System.out.println("OAuth2 : "+principal.getUser().getProvider());
+        System.out.println("OAuth2 : " + principal.getUser().getProvider());
         // iterator 순차 출력 해보기
         Iterator<? extends GrantedAuthority> iter = principal.getAuthorities().iterator();
         while (iter.hasNext()) {
@@ -76,5 +76,11 @@ public class IndexController {
         user.setRole("ROLE_USER");
         userRepository.save(user);
         return "redirect:/";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "개인정보";
     }
 }
